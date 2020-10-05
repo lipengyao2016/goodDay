@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+  <Appenders>
+   	<!--输出控制台的配置-->
+    <Console name="Console" target="SYSTEM_OUT">
+      <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+    </Console>
+    <!-- 按天每天备份一个日志 -->
+    <RollingFile name="RollingFile" fileName="D:/log/goodDay/goodDay.log" filePattern="D:/log/goodDay/goodDay_%d{yyyy-MM-dd}_%i.log">
+        <PatternLayout pattern="%d{yyyy-MM-dd 'at' HH:mm:ss z} %-5level %class{36} %L %M - %msg%xEx%n" />
+        <Policies>
+            <!-- 每24小时更新一次 -->
+            <TimeBasedTriggeringPolicy modulate="true" interval="24" />
+        </Policies>
+        <!-- 最多备份30个 -->
+        <DefaultRolloverStrategy max="30" />
+    </RollingFile>
+  </Appenders>
+  <Loggers>
+    <Root level="debug">
+      <AppenderRef ref="Console"/>
+      <AppenderRef ref="RollingFile"/>
+    </Root>
+  </Loggers>
+</Configuration>

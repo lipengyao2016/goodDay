@@ -1,0 +1,111 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>常用例子</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">	
+    <meta name="description" content="个人感觉，此弹出框比较不错">
+    <link rel="stylesheet" type="text/css" href="css/jquery-confirm.css"/>
+	<link rel="stylesheet" href="demo/libs/bundled.css">
+	<link rel="stylesheet" href="demo/demo.css">
+	<script type="text/javascript" src="js/jquery-1.10.1.min.js"></script>
+    <script type="text/javascript" src="js/jquery-confirm.js"></script>
+</head>
+<body>
+	<div class="container">
+		<div style="text-align:center;">
+			<section>
+                <h2>弹出框常用例子</h2>
+				<br/>
+                <div class="row">
+                    <div class="col-md-12">
+                        <button class="btn btn-primary btn-block example-p-1" id="alert1">无标题弹出框</button>
+                        <p class="text-success">示例：jQAlert('这是无标题弹出框',' ')</p>
+                    </div>  
+                </div>
+				<br/>
+                <div class="row">
+                     <div class="col-md-12">
+                        <button class="btn btn-primary btn-block example-p-2" id="alert2">默认标题弹出框</button>
+                        <p class="text-success">示例：jQAlert('这是默认标题弹出框')</p>
+                    </div>
+                </div>
+				<br/>
+                <div class="row">
+                    <div class="col-md-12">
+                        <button class="btn btn-primary btn-block example-p-70-type" id="alert3">自定义标题弹出框</button>
+                        <p class="text-success">示例：jQAlert('这是自定义标题弹出框','标题')</p>
+                    </div>
+                </div>
+				<br/>
+                <div class="row">
+                    <div class="col-md-12">
+                        <button class="btn btn-primary btn-block example-p-7-2" id="confirm1">confirm确认框</button>
+                        <p class="text-success">参考script中的示例</p>
+                    </div>
+                </div>
+			</section>
+		</div>
+	</div>
+</div>
+	
+        
+	<script type="text/javascript" charset="utf-8">
+		/* 	
+				封装弹出框方法
+				c:弹出框内容；
+				t:弹出框标题，默认“警告”，设置' '可以不显示弹出框标题；
+				
+			
+			
+		*/
+		function jQAlert(c,t){
+			if(!t){
+				t = "警告";
+			}
+			$.alert({
+				title: t,
+				content: c,
+				buttons: {
+					okay: {
+						text: '确认'
+					}
+				}
+			});
+		}
+		
+		
+		 $("#alert1").click(function(){
+			jQAlert('这是无标题弹出框',' ');
+		 });
+		 
+		 $("#alert2").click(function(){
+			jQAlert('这是默认标题弹出框');
+		 });
+		 
+		 $("#alert3").click(function(){
+			jQAlert('这是自定义标题弹出框','标题');
+		 });
+		 
+		 $("#confirm1").click(function(){
+			$.confirm({
+			    title: '确认框标题',
+			    content: '确认框内容',
+			    buttons: {
+			        confirm:{
+			        	text:"确认",
+			        	action: function(){
+			        		<!-- 此处为确认成功的后续操作，比如跳转新的页面等其他新的操作 -->
+							window.location.reload();
+			        	}
+			        },
+			        cancel: {
+			        	text:"取消"
+			        }
+			     }
+			});
+		 });	
+	</script
+
+</body>
+</html>
