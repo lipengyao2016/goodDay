@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 public class PhoenixConfig {
     static Connection conn = null;
@@ -24,6 +25,7 @@ public class PhoenixConfig {
          */
         try {
             conn = DriverManager.getConnection("jdbc:phoenix:47.112.175.168:2181");
+            System.out.println("getConnection ok.");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -43,4 +45,19 @@ public class PhoenixConfig {
         }
     }
 
+    public static Statement createStm() throws SQLException {
+        return PhoenixConfig.getConn().createStatement();
+    }
+
+    public static void closeStm(Statement statement)  {
+        if (statement != null){
+            try {
+                statement.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+
+    }
 }

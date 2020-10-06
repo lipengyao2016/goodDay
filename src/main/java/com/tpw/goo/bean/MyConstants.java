@@ -12,7 +12,10 @@ public class MyConstants {
 	/**
 	 * 本地地址
 	 */
-	public static final String local_host_ip = "127.0.0.1";
+	public static final String redis_host_ip = "47.107.239.163";
+
+	public static final int redis_port = 7006;
+	public static final String redis_password = "xfz178";
 	/**
 	 * success
 	 */

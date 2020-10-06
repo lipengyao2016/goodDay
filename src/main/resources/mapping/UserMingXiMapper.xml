@@ -11,15 +11,17 @@
     <!--<result column="user_status" property="userStatus" jdbcType="VARCHAR" />-->
     <!--<result column="role_alias" property="roleAlias" jdbcType="VARCHAR" />-->
     <!--<result column="role_name" property="roleName" jdbcType="VARCHAR" />-->
+    <!--parameterType="java.lang.Integer"-->
   </resultMap>
 
   <sql id="Base_Column_List" >
     id, uid, team_uid, trade_uid, trade_id_former, create_time, shijian,money,relate_id
   </sql>
-  <select id="selectAll" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  <select id="selectAll" resultMap="BaseResultMap"  >
     select 
     <include refid="Base_Column_List" />
     from fanli_mingxi_new
-    order by create_time asc limit #{0},#{1}
+    where create_time > #{lastCreateTime}
+    order by create_time asc limit #{offset},#{limit}
   </select>
 </mapper>
