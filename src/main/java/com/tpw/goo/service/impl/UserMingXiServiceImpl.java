@@ -68,7 +68,7 @@ public class UserMingXiServiceImpl implements IUserMingXiService {
 
              logger.info(" cnt:" + userMingxis.size() + " totalCnt:" + totalCnt
              +" lastCreateTime:"+lastCreateTime);
-             RedisUtil.save(cacheKey,lastCreateTime,-1);
+             RedisUtil.set(cacheKey,lastCreateTime,-1);
              loopCnt++;
 //             if (loopCnt >= 100)
 //             {

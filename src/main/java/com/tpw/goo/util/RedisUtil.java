@@ -128,6 +128,25 @@ public class RedisUtil {
 		}
 	}
 
+	public static Boolean set(String key, String val, int seconds) {
+		Jedis jedis = null;
+		try {
+			jedis = jedisPool.getResource();
+			jedis.set(key, val);
+			if (seconds > 0)
+			{
+				jedis.expire(key, seconds);
+			}
+
+			return true;
+		} catch (Exception e) {
+			logger.error("Cache保存失败：" + e);
+			return false;
+		} finally {
+			releaseResource(jedis);
+		}
+	}
+
 	/**
 	 * 根据缓存键获取Redis缓存中的值.<br/>
 	 * 
