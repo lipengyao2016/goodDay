@@ -1,5 +1,7 @@
 package com.tpw.goo2.test;
 
+import com.tpw.goo.bean.PageDto;
+import com.tpw.goo.bean.UserMingxi;
 import com.tpw.goo.service.IUserMingXiService;
 import com.tpw.goo.test.HBaseUtils;
 import org.apache.hadoop.hbase.client.Result;
@@ -27,7 +29,12 @@ public class MingxiUserTest extends BaseUnitTest {
         userMingXiService.syncMysqlDataToHBase();
     }
 
+    @Test
+    public void list() throws IOException {
 
+        PageDto<UserMingxi> userMingxiPageDto = userMingXiService.list(10408531,1,10);
+        System.out.println("end.");
+    }
 
 
 }

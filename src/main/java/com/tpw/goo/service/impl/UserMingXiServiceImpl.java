@@ -1,5 +1,6 @@
 package com.tpw.goo.service.impl;
 
+import com.tpw.goo.bean.PageDto;
 import com.tpw.goo.bean.UserMingxi;
 import com.tpw.goo.dao.MingxiNewHbaseDao;
 import com.tpw.goo.dao.MingxiNewPhoenixDao;
@@ -90,5 +91,10 @@ public class UserMingXiServiceImpl implements IUserMingXiService {
 
         logger.info(" end.. totalCnt:" + totalCnt  + " loopCnt:" + loopCnt + " tm:" + (System.currentTimeMillis()-lCur) );
          return  true;
+    }
+
+    @Override
+    public PageDto<UserMingxi> list(int uid, int pageNo, int pageSize) {
+        return mingxiNewPhoenixDao.listData(uid,pageNo,pageSize);
     }
 }
