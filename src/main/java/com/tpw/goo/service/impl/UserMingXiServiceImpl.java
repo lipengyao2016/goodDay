@@ -8,8 +8,10 @@ import com.tpw.goo.dao.UserMingXiMapper;
 import com.tpw.goo.service.IUserMingXiService;
 import com.tpw.goo.util.MyDateUtil;
 import com.tpw.goo.util.RedisUtil;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+//import org.apache.logging.log4j.LogManager;
+//import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +20,8 @@ import java.util.List;
 @Service
 public class UserMingXiServiceImpl implements IUserMingXiService {
 
-    private static Logger logger = LogManager.getLogger(UserMingXiServiceImpl.class);
+//    private static Logger logger = LogManager.getLogger(UserMingXiServiceImpl.class);
+    private static Log logger = LogFactory.getLog(UserMingXiServiceImpl.class);
 
     @Autowired
     protected UserMingXiMapper userMingXiMapper;
@@ -95,6 +98,7 @@ public class UserMingXiServiceImpl implements IUserMingXiService {
 
     @Override
     public PageDto<UserMingxi> list(int uid, int pageNo, int pageSize) {
+        logger.info(" begin");
         return mingxiNewPhoenixDao.listData(uid,pageNo,pageSize);
     }
 }
