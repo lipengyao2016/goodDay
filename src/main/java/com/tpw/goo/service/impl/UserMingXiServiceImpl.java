@@ -5,6 +5,7 @@ import com.tpw.goo.bean.UserMingxi;
 import com.tpw.goo.dao.MingxiNewHbaseDao;
 import com.tpw.goo.dao.MingxiNewPhoenixDao;
 import com.tpw.goo.dao.UserMingXiMapper;
+import com.tpw.goo.phoniex_dao.UserMingXiPhoniexMapper;
 import com.tpw.goo.service.IUserMingXiService;
 import com.tpw.goo.util.MyDateUtil;
 import com.tpw.goo.util.RedisUtil;
@@ -31,6 +32,9 @@ public class UserMingXiServiceImpl implements IUserMingXiService {
 
     @Autowired
     protected MingxiNewPhoenixDao mingxiNewPhoenixDao;
+
+    @Autowired
+    protected UserMingXiPhoniexMapper userMingXiPhoniexMapper;
 
     @Override
     public boolean syncMysqlDataToHBase() {
@@ -99,6 +103,10 @@ public class UserMingXiServiceImpl implements IUserMingXiService {
     @Override
     public PageDto<UserMingxi> list(int uid, int pageNo, int pageSize) {
         logger.info(" begin");
-        return mingxiNewPhoenixDao.listData(uid,pageNo,pageSize);
+        PageDto<UserMingxi> userMingxiPageDto = new PageDto<>();
+        List<UserMingxi> userMingxiList =  userMingXiPhoniexMapper.selectAll(uid,pageNo,pageSize);
+        userMingxiPageDto.setData(userMingxiList);
+        return  userMingxiPageDto;
+
     }
 }
