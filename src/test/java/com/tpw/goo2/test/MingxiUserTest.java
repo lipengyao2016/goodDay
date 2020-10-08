@@ -2,6 +2,7 @@ package com.tpw.goo2.test;
 
 import com.tpw.goo.bean.PageDto;
 import com.tpw.goo.bean.UserMingxi;
+import com.tpw.goo.phoniex_dao.UserMingXiPhoniexMapper;
 import com.tpw.goo.service.IUserMingXiService;
 import com.tpw.goo.test.HBaseUtils;
 import org.apache.hadoop.hbase.client.Result;
@@ -22,6 +23,8 @@ public class MingxiUserTest extends BaseUnitTest {
     @Resource
     IUserMingXiService userMingXiService;
 
+    @Resource
+    UserMingXiPhoniexMapper userMingXiPhoniexMapper;
 
     @Test
     public void syncMysqlDataToHBase() throws IOException {
@@ -36,5 +39,10 @@ public class MingxiUserTest extends BaseUnitTest {
         System.out.println("end.");
     }
 
+    @Test
+    public void staticsIncome() throws IOException {
+        Map<String,Object> res = userMingXiPhoniexMapper.staticsIncome(10408531);
+        System.out.println("end.");
+    }
 
 }
