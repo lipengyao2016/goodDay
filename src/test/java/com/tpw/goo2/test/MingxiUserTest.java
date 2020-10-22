@@ -28,7 +28,6 @@ public class MingxiUserTest extends BaseUnitTest {
 
     @Test
     public void syncMysqlDataToHBase() throws IOException {
-
         userMingXiService.syncMysqlDataToHBase();
     }
 
@@ -43,6 +42,11 @@ public class MingxiUserTest extends BaseUnitTest {
     public void staticsIncome() throws IOException {
         Map<String,Object> res = userMingXiPhoniexMapper.staticsIncome(10408531);
         System.out.println("end.");
+    }
+
+    @Test
+    public void initMingXiTable() throws IOException {
+        userMingXiService.initMingXiTable();
     }
 
 }

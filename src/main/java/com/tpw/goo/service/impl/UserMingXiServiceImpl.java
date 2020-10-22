@@ -42,8 +42,6 @@ public class UserMingXiServiceImpl implements IUserMingXiService {
 
         long nMinCreateTime = mingxiNewPhoenixDao.getMinCreateTime();
         long nMaxCreateTime = mingxiNewPhoenixDao.getMaxCreateTime();
-       // mingxiNewHbaseDao.initTable();
-       // return  true;
         int offset =0,pageSize = 1000;
         int totalCnt = 0;
         long lCur = System.currentTimeMillis();
@@ -66,9 +64,9 @@ public class UserMingXiServiceImpl implements IUserMingXiService {
              totalCnt += userMingxis.size();
              offset += pageSize;
 
-             //mingxiNewHbaseDao.WriteData(userMingxis);
+             mingxiNewHbaseDao.WriteData(userMingxis);
             // mingxiNewPhoenixDao.insert(userMingxis.get(0));
-             mingxiNewPhoenixDao.batchInsert(userMingxis);
+//             mingxiNewPhoenixDao.batchInsert(userMingxis);
              if (userMingxis.size() >0 )
              {
                  lastCreateTime = MyDateUtil.formatDate(userMingxis.get(userMingxis.size()-1).getCreate_time(),null);
@@ -78,10 +76,10 @@ public class UserMingXiServiceImpl implements IUserMingXiService {
              +" lastCreateTime:"+lastCreateTime);
              RedisUtil.set(cacheKey,lastCreateTime,-1);
              loopCnt++;
-//             if (loopCnt >= 100)
-//             {
-//                 break;
-//             }
+             if (loopCnt >= 10)
+             {
+                 break;
+             }
 
              if (loopCnt%10 ==0)
              {
@@ -108,5 +106,11 @@ public class UserMingXiServiceImpl implements IUserMingXiService {
         userMingxiPageDto.setData(userMingxiList);
         return  userMingxiPageDto;
 
+    }
+
+    @Override
+    public boolean initMingXiTable() {
+        mingxiNewHbaseDao.initTable();
+        return  true;
     }
 }

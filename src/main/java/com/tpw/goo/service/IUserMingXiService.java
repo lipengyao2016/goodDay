@@ -9,4 +9,6 @@ public interface IUserMingXiService {
 	public boolean syncMysqlDataToHBase();
 
 	public PageDto<UserMingxi> list(int uid, int pageNo, int pageSize);
+
+    public boolean initMingXiTable();
 }

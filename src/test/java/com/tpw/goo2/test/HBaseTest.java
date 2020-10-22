@@ -22,7 +22,10 @@ public class HBaseTest extends BaseUnitTest {
 
     @Test
     public void createTable() throws Exception {
-        hBaseUtils.createTable(tableName,new String[]{"baseInfo","schoolInfo"});
+//        hBaseUtils.createTable(tableName,new String[]{"baseInfo","schoolInfo"});
+
+        hBaseUtils.createTable("UserMingXiCount",
+                new String[]{"f"});
     }
 
     @Test
