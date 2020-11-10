@@ -11,8 +11,8 @@ import java.util.Properties;
 public class ProducerDemo {
     private final KafkaProducer<String, String> producer;
 
-   // public final static String TOPIC = "test1";
-    public final static String TOPIC = "rebate_yugu_new";
+    public final static String TOPIC = "test1";
+//    public final static String TOPIC = "rebate_yugu_new";
     //public final static String TOPIC = "trade_id_uid";
 
 
@@ -21,8 +21,11 @@ public class ProducerDemo {
 //        props.put("zk.connect", "47.107.246.243:2181");
 //        props.put("bootstrap.servers", "47.107.246.243:9092");//xxx服务器ip
 
-        props.put("zk.connect", "47.112.111.193:2181");
-        props.put("bootstrap.servers", "47.112.111.193:9092");//xxx服务器ip
+//        props.put("zk.connect", "47.112.111.193:2181");
+//        props.put("bootstrap.servers", "47.112.111.193:9092");//xxx服务器ip
+
+        props.put("zk.connect", "localhost:2181");
+        props.put("bootstrap.servers", "localhost:9092");//xxx服务器ip
 
         props.put("acks", "all");//所有follower都响应了才认为消息提交成功，即"committed"
         props.put("retries", 0);//retries = MAX 无限重试，直到你意识到出现了问题:)
@@ -31,7 +34,7 @@ public class ProducerDemo {
        // props.put("linger.ms", 1);//延迟1ms发送，这项设置将通过增加小的延迟来完成--即，不是立即发送一条记录，producer将会等待给定的延迟时间以允许其他消息记录发送，这些消息记录可以批量处理
        // props.put("buffer.memory", 33554432);//producer可以用来缓存数据的内存大小。
         props.put("key.serializer",
-                "org.apache.kafka.common.serialization.IntegerSerializer");
+                "org.apache.kafka.common.serialization.StringSerializer");
         props.put("value.serializer",
                 "org.apache.kafka.common.serialization.StringSerializer");
 
@@ -40,7 +43,7 @@ public class ProducerDemo {
 
     public void produce() {
         int messageNo = 1;
-        final int COUNT = 2000;
+        final int COUNT = 20;
 
         UrlInfo urlInfo = new UrlInfo();
 
@@ -70,7 +73,7 @@ public class ProducerDemo {
             System.out.println(sendData);
 
             try {
-                producer.send(new ProducerRecord<String, String>(TOPIC, sendData));
+                producer.send(new ProducerRecord<String, String>(TOPIC, key + "_lpy",sendData));
                 Thread.sleep(10);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -120,7 +123,7 @@ public class ProducerDemo {
     }
 
     public static void main(String[] args) {
-        new ProducerDemo().produce2();
+        new ProducerDemo().produce();
     }
 
 

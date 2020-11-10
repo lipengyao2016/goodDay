@@ -76,10 +76,10 @@ public class UserMingXiServiceImpl implements IUserMingXiService {
              +" lastCreateTime:"+lastCreateTime);
              RedisUtil.set(cacheKey,lastCreateTime,-1);
              loopCnt++;
-             if (loopCnt >= 10)
-             {
-                 break;
-             }
+//             if (loopCnt >= 10)
+//             {
+//                 break;
+//             }
 
              if (loopCnt%10 ==0)
              {
