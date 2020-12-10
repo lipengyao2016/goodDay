@@ -2,30 +2,42 @@ package com.tpw.goo.test;
 
 import com.alibaba.fastjson.JSONObject;
 import com.tpw.goo.bean.UrlInfo;
+import org.apache.commons.lang3.RandomUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerRecord;
 
-import java.util.Date;
-import java.util.Properties;
+import java.util.*;
 
 public class ProducerDemo {
     private final KafkaProducer<String, String> producer;
 
-    public final static String TOPIC = "test1";
+//    public final static String TOPIC = "test1";
 //    public final static String TOPIC = "rebate_yugu_new";
     //public final static String TOPIC = "trade_id_uid";
+//    public final static String TOPIC = "user_mingixi_mq";
+//    public final static String TOPIC = "kafkaReadStorm";
+    public final static String TOPIC = "flinkKafka";
+    protected List<String> wordList = Arrays.asList("Spark","Hadoop","Water","Apple","People","Storm");
 
+    protected String generateWordLine()
+    {
+        Collections.shuffle(this.wordList);
+        int randNum = RandomUtils.nextInt(  0,wordList.size()-1);
+        return StringUtils.join(wordList.toArray()," ",0,randNum);
+
+    }
 
     private ProducerDemo() {
         Properties props = new Properties();
 //        props.put("zk.connect", "47.107.246.243:2181");
 //        props.put("bootstrap.servers", "47.107.246.243:9092");//xxx服务器ip
 
-//        props.put("zk.connect", "47.112.111.193:2181");
-//        props.put("bootstrap.servers", "47.112.111.193:9092");//xxx服务器ip
+        props.put("zk.connect", "47.112.111.193:2181");
+        props.put("bootstrap.servers", "47.112.111.193:9092");//xxx服务器ip
 
-        props.put("zk.connect", "localhost:2181");
-        props.put("bootstrap.servers", "localhost:9092");//xxx服务器ip
+//        props.put("zk.connect", "localhost:2181");
+//        props.put("bootstrap.servers", "localhost:9092");//xxx服务器ip
 
         props.put("acks", "all");//所有follower都响应了才认为消息提交成功，即"committed"
         props.put("retries", 0);//retries = MAX 无限重试，直到你意识到出现了问题:)
@@ -43,7 +55,7 @@ public class ProducerDemo {
 
     public void produce() {
         int messageNo = 1;
-        final int COUNT = 20;
+        final int COUNT = 30000;
 
         UrlInfo urlInfo = new UrlInfo();
 
@@ -51,15 +63,17 @@ public class ProducerDemo {
             String key = String.valueOf(messageNo);
             JSONObject obj1 = new JSONObject();
             String data = "";
-            if(messageNo%3 !=0)
-            {
-                //data = String.format("hello KafkaProducer message %s from hubo 06291018 ", key);
-                data = String.format("http://www.sina.com/%s/index.html", key);
-            }
-            else
-            {
-                data = String.format("http://www.baidu.com/%s/article.php", key);
-            }
+//            if(messageNo%3 !=0)
+//            {
+//                //data = String.format("hello KafkaProducer message %s from hubo 06291018 ", key);
+//                data = String.format("http://www.sina.com/%s/index.html", key);
+//            }
+//            else
+//            {
+//                data = String.format("http://www.baidu.com/%s/article.php", key);
+//            }
+
+            data = generateWordLine();
 
        /*     obj1.put("name",data);
             String sendData = JSONObject.toJSONString(obj1);
@@ -73,8 +87,8 @@ public class ProducerDemo {
             System.out.println(sendData);
 
             try {
-                producer.send(new ProducerRecord<String, String>(TOPIC, key + "_lpy",sendData));
-                Thread.sleep(10);
+                producer.send(new ProducerRecord<String, String>(TOPIC, key + "_lpy",/*sendData*/ data));
+                Thread.sleep(100);
             } catch (Exception e) {
                 e.printStackTrace();
             }

@@ -162,6 +162,12 @@
 		<version>1.10</version>
 	</dependency>
 
+      <dependency>
+          <groupId>org.apache.commons</groupId>
+          <artifactId>commons-lang3</artifactId>
+          <version>3.8.1</version>
+      </dependency>
+
 	<dependency>
 		<groupId>commons-codec</groupId>
 		<artifactId>commons-codec</artifactId>
@@ -364,20 +370,20 @@
 
 
   </dependencies>
-  <build>
-    <finalName>goodDay</finalName>
-    <plugins>
-	    <plugin>
-	      <groupId>org.apache.maven.plugins</groupId>
-	      <artifactId>maven-compiler-plugin</artifactId>
-	      <configuration>
-	        <source>1.7</source>
-	        <target>1.7</target>
-	      </configuration>
-	    </plugin>
-  	</plugins>
+    <build>
+        <finalName>goodDay</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.7</source>
+                    <target>1.7</target>
+                </configuration>
+            </plugin>
+        </plugins>
 
 
 
-  </build>
+    </build>
 </project>
