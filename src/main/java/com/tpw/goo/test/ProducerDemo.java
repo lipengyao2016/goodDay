@@ -8,6 +8,7 @@ import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerRecord;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class ProducerDemo {
     private final KafkaProducer<String, String> producer;
@@ -18,13 +19,15 @@ public class ProducerDemo {
 //    public final static String TOPIC = "user_mingixi_mq";
 //    public final static String TOPIC = "kafkaReadStorm";
     public final static String TOPIC = "flinkKafka";
-    protected List<String> wordList = Arrays.asList("Spark","Hadoop","Water","Apple","People","Storm");
+    public final static String WORD_PREFIX = "kafka_";
+    protected List<String> wordList = Arrays.asList("aa","bb","cc","dd","ee");
+    protected List<String> newWordList = new ArrayList<>();
 
     protected String generateWordLine()
     {
-        Collections.shuffle(this.wordList);
-        int randNum = RandomUtils.nextInt(  0,wordList.size()-1);
-        return StringUtils.join(wordList.toArray()," ",0,randNum);
+        Collections.shuffle(this.newWordList);
+        int randNum = RandomUtils.nextInt(  0,newWordList.size()-1);
+        return StringUtils.join(newWordList.toArray()," ",0,randNum);
 
     }
 
@@ -51,6 +54,13 @@ public class ProducerDemo {
                 "org.apache.kafka.common.serialization.StringSerializer");
 
         producer = new KafkaProducer<String, String>(props);
+
+        for (String s:
+             wordList) {
+            newWordList.add(WORD_PREFIX+s);
+        }
+
+
     }
 
     public void produce() {
